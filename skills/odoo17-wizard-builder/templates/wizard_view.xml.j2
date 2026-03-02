@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="{{ wizard_view_xmlid }}" model="ir.ui.view">
+      <field name="name">{{ wizard_model_name }}.form</field>
+      <field name="model">{{ wizard_model_name }}</field>
+      <field name="arch" type="xml">
+        <form string="{{ wizard_title }}">
+          <sheet>
+            <div class="oe_title">
+              <h1>{{ wizard_title }}</h1>
+            </div>
+            {% if wizard_help %}
+            <div class="alert alert-info" role="alert">
+              {{ wizard_help }}
+            </div>
+            {% endif %}
+
+            <group>
+              {% for field_name in form_fields %}
+              <field name="{{ field_name }}"/>
+              {% endfor %}
+            </group>
+          </sheet>
+
+          <footer>
+            <button name="action_apply" type="object" string="{{ primary_button_label }}" class="btn-primary"/>
+            <button string="Cancel" special="cancel" class="btn-secondary"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

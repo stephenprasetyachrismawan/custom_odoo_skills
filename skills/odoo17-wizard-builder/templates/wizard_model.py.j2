@@ -1,0 +1,55 @@
+import logging
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError, ValidationError
+
+_logger = logging.getLogger(__name__)
+
+
+class {{ wizard_class_name }}(models.TransientModel):
+    _name = "{{ wizard_model_name }}"
+    _description = "{{ wizard_description }}"
+
+    # === Fields (edit based on requirements) ===
+    {% for f in fields %}
+    {{ f }}
+    {% endfor %}
+
+    def _get_active_records(self):
+        """Return the active recordset from context, multi-record safe."""
+        active_model = self.env.context.get("active_model")
+        active_ids = self.env.context.get("active_ids") or []
+        if not active_model or not active_ids:
+            if active_model:
+                return self.env[active_model].browse([])
+            raise UserError(_("This wizard must be opened from the related record."))
+        return self.env[active_model].browse(active_ids)
+
+    def _validate_inputs(self, records):
+        """Validate wizard inputs before applying changes."""
+        self.ensure_one()
+        # Add business validations here; raise ValidationError/UserError as needed.
+        return True
+
+    def _apply_changes(self, records):
+        """Apply changes to target records. Keep it predictable and small."""
+        self.ensure_one()
+        # Implement actual business logic here (write/call methods).
+        return True
+
+    def action_apply(self):
+        """Primary button action (Apply/Confirm)."""
+        self.ensure_one()
+        records = self._get_active_records()
+        _logger.info("Wizard %s applying on %s record(s).", self._name, len(records))
+        try:
+            self._validate_inputs(records)
+            self._apply_changes(records)
+        except Exception:
+            _logger.exception("Wizard %s failed.", self._name)
+            raise
+        _logger.info("Wizard %s finished.", self._name)
+        return {"type": "ir.actions.act_window_close"}
+
+    def action_cancel(self):
+        """Secondary button action (Cancel)."""
+        return {"type": "ir.actions.act_window_close"}

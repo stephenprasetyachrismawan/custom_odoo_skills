@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="{{ wizard_action_xmlid }}" model="ir.actions.act_window">
+      <field name="name">{{ wizard_action_name }}</field>
+      <field name="res_model">{{ wizard_model_name }}</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      {% if action_context %}
+      <field name="context">{{ action_context }}</field>
+      {% endif %}
+    </record>
+
+  </data>
+</odoo>
