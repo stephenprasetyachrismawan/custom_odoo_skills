@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="{{ view_xmlid }}" model="ir.ui.view">
+      <field name="name">{{ model }}.list</field>
+      <field name="model">{{ model }}</field>
+      <field name="arch" type="xml">
+        <list string="{{ title }}"
+              {% if create is not none %}create="{{ create }}"{% endif %}
+              {% if edit is not none %}edit="{{ edit }}"{% endif %}
+              {% if delete is not none %}delete="{{ delete }}"{% endif %}
+              {% if import_ is not none %}import="{{ import_ }}"{% endif %}
+              {% if default_order %}default_order="{{ default_order }}"{% endif %}
+              {% if editable %}editable="{{ editable }}"{% endif %}
+              {% if decoration_info %}decoration-info="{{ decoration_info }}"{% endif %}
+              {% if decoration_success %}decoration-success="{{ decoration_success }}"{% endif %}
+              {% if decoration_warning %}decoration-warning="{{ decoration_warning }}"{% endif %}
+              {% if decoration_danger %}decoration-danger="{{ decoration_danger }}"{% endif %}
+              {% if decoration_muted %}decoration-muted="{{ decoration_muted }}"{% endif %}
+              {% if decoration_bf %}decoration-bf="{{ decoration_bf }}"{% endif %}
+              {% if decoration_it %}decoration-it="{{ decoration_it }}"{% endif %}
+        >
+
+          {% for col in columns %}
+          <field name="{{ col.name }}"
+                 {% if col.optional %}optional="{{ col.optional }}"{% endif %}
+                 {% if col.widget %}widget="{{ col.widget }}"{% endif %}
+                 {% if col.string %}string="{{ col.string }}"{% endif %}
+                 {% if col.readonly %}readonly="{{ col.readonly }}"{% endif %}
+                 {% if col.invisible %}invisible="{{ col.invisible }}"{% endif %}
+                 {% if col.groups %}groups="{{ col.groups }}"{% endif %}
+          />
+          {% endfor %}
+
+          {% if has_row_button %}
+          <button name="{{ row_button_method }}"
+                  type="object"
+                  string="{{ row_button_label }}"
+                  class="btn-primary"
+                  {% if row_button_groups %}groups="{{ row_button_groups }}"{% endif %}
+          />
+          {% endif %}
+
+        </list>
+      </field>
+    </record>
+
+  </data>
+</odoo>

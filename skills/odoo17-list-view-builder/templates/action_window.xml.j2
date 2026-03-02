@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="{{ action_xmlid }}" model="ir.actions.act_window">
+      <field name="name">{{ action_name }}</field>
+      <field name="res_model">{{ model }}</field>
+      <field name="view_mode">list,form</field>
+      {% if context %}<field name="context">{{ context }}</field>{% endif %}
+      {% if domain %}<field name="domain">{{ domain }}</field>{% endif %}
+    </record>
+
+  </data>
+</odoo>

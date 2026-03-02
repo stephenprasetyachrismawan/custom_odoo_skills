@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <menuitem id="{{ menu_id }}"
+              name="{{ menu_name }}"
+              parent="{{ parent_menu_xmlid }}"
+              action="{{ action_xmlid }}"
+              sequence="{{ sequence }}"
+              {% if groups %}groups="{{ groups }}"{% endif %}
+    />
+
+  </data>
+</odoo>
