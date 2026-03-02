@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="{{ model_name | replace('.', '_') }}_tree" model="ir.ui.view">
+    <field name="name">{{ model_name }}.tree</field>
+    <field name="model">{{ model_name }}</field>
+    <field name="arch" type="xml">
+      <tree string="{{ view_title }}" editable="bottom">
+        <field name="name"/>
+        {% if multi_company %}<field name="company_id" groups="base.group_multi_company"/>{% endif %}
+        <field name="partner_id"/>
+        <field name="state" widget="badge"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="{{ model_name | replace('.', '_') }}_form" model="ir.ui.view">
+    <field name="name">{{ model_name }}.form</field>
+    <field name="model">{{ model_name }}</field>
+    <field name="arch" type="xml">
+      <form string="{{ view_title }}">
+        <sheet>
+          <div class="oe_button_box" name="button_box"/>
+          <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
+          <group>
+            <group>
+              <field name="name"/>
+              {% if multi_company %}<field name="company_id" groups="base.group_multi_company"/>{% endif %}
+              <field name="partner_id"/>
+              <field name="user_id"/>
+              <field name="state"/>
+            </group>
+          </group>
+        </sheet>
+        {% if use_chatter %}<chatter/>{% endif %}
+      </form>
+    </field>
+  </record>
+
+  <record id="{{ model_name | replace('.', '_') }}_search" model="ir.ui.view">
+    <field name="name">{{ model_name }}.search</field>
+    <field name="model">{{ model_name }}</field>
+    <field name="arch" type="xml">
+      <search string="{{ view_title }}">
+        <field name="name"/>
+        <field name="partner_id"/>
+        <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+        <filter string="Confirmed" name="filter_confirmed" domain="[('state', '=', 'confirmed')]"/>
+        <filter string="Done" name="filter_done" domain="[('state', '=', 'done')]"/>
+        <separator/>
+        <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+      </search>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,15 @@
+{
+    "name": "{{ module_title }}",
+    "version": "17.0.1.0.0",
+    "category": "{{ module_category }}",
+    "summary": "{{ module_summary }}",
+    "author": "{{ author }}",
+    "license": "LGPL-3",
+    "depends": [{% if use_chatter %}"mail"{% endif %}],
+    "data": [
+        {% if security_file %}"security/ir.model.access.csv",{% endif %}
+        "views/{{ model_name | replace('.', '_') }}_views.xml",
+    ],
+    "installable": True,
+    "application": False,
+}

@@ -1,0 +1,45 @@
+import logging
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
+
+
+class {{ class_name }}(models.Model):
+    _name = "{{ model_name }}"
+    _description = "{{ description }}"
+    {% if use_chatter %}_inherit = ["mail.thread", "mail.activity.mixin"]{% endif %}
+
+    name = fields.Char(required=True, index=True, tracking={{ "True" if use_chatter else "False" }})
+    active = fields.Boolean(default=True)
+
+    {% if multi_company %}
+    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company, index=True)
+    {% endif %}
+
+    # Example relational fields (adjust to requirements)
+    partner_id = fields.Many2one("res.partner", index=True)
+    user_id = fields.Many2one("res.users", default=lambda self: self.env.user, index=True)
+
+    state = fields.Selection(
+        [("draft", "Draft"), ("confirmed", "Confirmed"), ("done", "Done"), ("cancelled", "Cancelled")],
+        default="draft",
+        index=True,
+        tracking={{ "True" if use_chatter else "False" }},
+    )
+
+    _sql_constraints = [
+        ("name_company_uniq", "unique(name{% if multi_company %}, company_id{% endif %})", "Name must be unique."),
+    ]
+
+    def action_confirm(self):
+        _logger.info("Confirming %s record(s) for model %s.", len(self), self._name)
+        for rec in self:
+            rec._check_can_confirm()
+            rec.state = "confirmed"
+
+    def _check_can_confirm(self):
+        """Small, testable guard for confirm action."""
+        self.ensure_one()
+        if self.state != "draft":
+            raise ValidationError(_("Only Draft records can be confirmed."))
