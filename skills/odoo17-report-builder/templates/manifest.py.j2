@@ -1,0 +1,14 @@
+{
+    "name": "{{ module_title }}",
+    "version": "17.0.1.0.0",
+    "license": "LGPL-3",
+    "depends": {{ depends }},
+    "data": [
+        "{{ report_action_xml_path }}",
+        "{{ report_template_xml_path }}",
+        {% if server_action_xml_path %}"{{ server_action_xml_path }}",{% endif %}
+        {% if view_xml_path %}"{{ view_xml_path }}",{% endif %}
+    ],
+    "installable": True,
+    "application": False,
+}

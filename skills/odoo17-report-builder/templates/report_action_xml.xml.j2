@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="{{ report_action_xmlid }}" model="ir.actions.report">
+      <field name="name">{{ report_title }}</field>
+      <field name="model">{{ target_model }}</field>
+      <field name="report_type">{{ report_type }}</field>
+      <field name="report_name">{{ module_name }}.{{ template_qweb_name }}</field>
+      <field name="report_file">{{ module_name }}.{{ template_qweb_name }}</field>
+      {% if print_report_name %}
+      <field name="print_report_name">{{ print_report_name }}</field>
+      {% endif %}
+    </record>
+
+  </data>
+</odoo>

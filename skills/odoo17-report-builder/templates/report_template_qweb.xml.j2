@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="{{ template_xmlid }}" name="{{ report_title }}">
+    <t t-call="web.external_layout">
+      <t t-set="docs" t-value="docs"/>
+      <div class="page">
+        <h2>{{ report_title }}</h2>
+
+        <t t-foreach="docs" t-as="doc">
+          <div style="margin-bottom: 12px;">
+            <h3>
+              <span t-esc="doc.display_name"/>
+            </h3>
+
+            <!-- Joined rows example -->
+            <t t-set="rows" t-value="joined_rows"/>
+            <table class="table table-sm o_main_table">
+              <thead>
+                <tr>
+                  <th>Main</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="rows" t-as="r">
+                  <tr>
+                    <td>
+                      <span t-esc="r.get('doc').display_name if r.get('doc') else ''"/>
+                    </td>
+                    <td>
+                      <span t-esc="(r.get('items') and len(r.get('items'))) or 0"/> item(s)
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+          </div>
+        </t>
+      </div>
+    </t>
+  </template>
+</odoo>

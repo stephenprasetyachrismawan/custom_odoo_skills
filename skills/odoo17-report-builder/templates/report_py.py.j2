@@ -1,0 +1,44 @@
+import logging
+from odoo import api, models
+
+_logger = logging.getLogger(__name__)
+
+
+class {{ report_class_name }}(models.AbstractModel):
+    _name = "report.{{ module_name }}.{{ template_qweb_name }}"
+    _description = "{{ report_title }} Report"
+
+    def _get_docs(self, docids):
+        return self.env["{{ target_model }}"].browse(docids)
+
+    def _prepare_joined_rows(self, docs):
+        """
+        Prepare joined/aggregated rows.
+        Prefer relational traversal or ORM search/read_group.
+        Avoid SQL unless explicitly required.
+        """
+        # Example skeleton: override with real join logic
+        rows = []
+        for doc in docs:
+            # Add main doc row
+            rows.append({"doc": doc, "items": []})
+        return rows
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self._get_docs(docids)
+        _logger.info("Generating report %s for %s doc(s).", self._name, len(docs))
+
+        try:
+            joined_rows = self._prepare_joined_rows(docs)
+        except Exception:
+            _logger.exception("Failed while preparing joined rows for report %s.", self._name)
+            raise
+
+        return {
+            "doc_ids": docids,
+            "doc_model": "{{ target_model }}",
+            "docs": docs,
+            "joined_rows": joined_rows,
+            "data": data or {},
+        }

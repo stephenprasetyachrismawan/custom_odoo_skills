@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="{{ server_action_xmlid }}" model="ir.actions.server">
+      <field name="name">{{ server_action_name }}</field>
+      <field name="model_id" ref="{{ target_model_ir_model_xmlid }}"/>
+      {% if bind_to_model %}
+      <field name="binding_model_id" ref="{{ target_model_ir_model_xmlid }}"/>
+      <field name="binding_type">action</field>
+      {% endif %}
+      <field name="state">code</field>
+      <field name="code"><![CDATA[
+if records:
+    records.action_print_{{ report_key }}()
+      ]]></field>
+    </record>
+
+  </data>
+</odoo>
