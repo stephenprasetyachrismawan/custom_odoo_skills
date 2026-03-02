@@ -1,0 +1,37 @@
+import logging
+from odoo import api, models
+
+_logger = logging.getLogger(__name__)
+
+
+class {{ class_name }}(models.Model):
+    _inherit = "{{ target_model }}"
+{% if fields %}
+
+    # Additive fields only; do not remove or alter existing fields
+{% for field in fields %}
+    {{ field }}
+{% endfor %}
+{% endif %}
+{% if method_overrides %}
+{% for method in method_overrides %}
+
+    def {{ method.name }}(self{{ ', ' + method.args if method.args else '' }}):
+        """Extension of {{ target_model }}.{{ method.name }}."""
+        _logger.debug("{{ class_name }}.{{ method.name }} called on %s record(s)", len(self))
+        res = super().{{ method.name }}({{ method.super_args or '' }})
+        # Add extension logic here; keep minimal
+        return res
+{% endfor %}
+{% endif %}
+{% if new_methods %}
+{% for method in new_methods %}
+
+    def {{ method.name }}(self{{ ', ' + method.args if method.args else '' }}):
+        """New method for {{ target_model }} extension."""
+        self.ensure_one()
+        _logger.debug("{{ class_name }}.{{ method.name }} on id=%s", self.id)
+        # Implement logic
+        return
+{% endfor %}
+{% endif %}

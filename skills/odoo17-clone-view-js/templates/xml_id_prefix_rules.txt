@@ -1,0 +1,4 @@
+XML ID RULES:
+- Every cloned XML record id must start with: <module>_clone_<slug>_
+- Never reuse original xml_id from source.
+- View <field name="name"> must be unique and include <module>.clone.<slug>.

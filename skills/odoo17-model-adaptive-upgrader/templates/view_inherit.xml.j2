@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <!-- View extension: {{ view_name }} -->
+    <record id="{{ inherit_xml_id }}" model="ir.ui.view">
+      <field name="name">{{ view_name }}</field>
+      <field name="model">{{ target_model }}</field>
+      <field name="inherit_id" ref="{{ parent_view_xmlid }}"/>
+      <field name="arch" type="xml">
+{% for xpath in xpaths %}
+        <xpath expr="{{ xpath.expr }}" position="{{ xpath.position }}">
+          <field name="{{ xpath.field_name }}"{{ ' ' + xpath.attrs if xpath.attrs else '' }}/>
+        </xpath>
+{% endfor %}
+      </field>
+    </record>
+
+  </data>
+</odoo>

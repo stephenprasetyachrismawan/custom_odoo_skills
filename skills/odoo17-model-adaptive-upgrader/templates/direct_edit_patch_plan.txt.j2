@@ -1,0 +1,20 @@
+DIRECT EDIT PATCH PLAN
+
+Target file(s):
+- {{ files }}
+
+Rules:
+- Keep public API stable (method names/signatures unchanged unless explicitly required).
+- Split large methods into helpers but keep original wrapper method.
+- Avoid non-functional churn (formatting-only diffs).
+- After edits, grep usages of changed fields/methods and fix references.
+
+Changes:
+{{ change_list }}
+
+Validation checklist:
+- Fields referenced in XML exist
+- Buttons method exists (type="object")
+- Server actions calling methods still valid
+- @api.depends correct
+- No new constraints breaking existing data unless requested
