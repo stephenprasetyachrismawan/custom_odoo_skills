@@ -1,0 +1,42 @@
+import logging
+from odoo import api, models, _
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
+
+
+class {{ class_name }}(models.Model):
+    _inherit = "{{ target_model }}"
+
+    def {{ method_name }}(self):
+        """Server action entrypoint. Multi-record safe."""
+        _logger.info("Server action '%s' called on %s record(s).", "{{ action_name }}", len(self))
+
+        # Example guard
+        if not self:
+            _logger.debug("No records to process; exiting.")
+            return
+
+        # Do the real work in small helpers
+        for rec in self:
+            rec._{{ method_name }}_validate()
+            rec._{{ method_name }}_apply()
+
+        _logger.info("Server action '%s' finished.", "{{ action_name }}")
+
+    def _{{ method_name }}_validate(self):
+        """Validate record state before applying changes."""
+        self.ensure_one()
+        # Put real validation here; raise user-friendly errors.
+        # Example:
+        # if not self.partner_id:
+        #     raise UserError(_("Missing partner."))
+        _logger.debug("Validated record id=%s for server action.", self.id)
+
+    def _{{ method_name }}_apply(self):
+        """Apply the change. Keep this small and predictable."""
+        self.ensure_one()
+        _logger.debug("Applying server action logic on id=%s.", self.id)
+
+        # Example change (replace with real requirement):
+        # self.write({"x_flag": True})

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data noupdate="0">
+
+    <!-- Server Action: {{ action_name }} -->
+    <record id="{{ xml_id }}" model="ir.actions.server">
+      <field name="name">{{ action_name }}</field>
+
+      <!-- Target model for the server action -->
+      <field name="model_id" ref="{{ model_xmlid }}"/>
+
+      <!-- Optional binding: show under Action menu of the bound model -->
+      {% if binding_model_xmlid %}
+      <field name="binding_model_id" ref="{{ binding_model_xmlid }}"/>
+      <field name="binding_type">action</field>
+      {% endif %}
+
+      <!-- Execute python code -->
+      <field name="state">code</field>
+      <field name="code"><![CDATA[
+# Available variables: env, model, record, records, time, datetime, dateutil, timezone
+# Keep logic minimal here; call model methods for complex behavior.
+if not records:
+    return
+
+# Multi-record safe: prefer method call
+records.{{ method_name }}()
+      ]]></field>
+    </record>
+
+  </data>
+</odoo>
