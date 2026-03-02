@@ -1,0 +1,15 @@
+# Folders
+archiver_sessions/
+sessions/
+shell_snapshot/
+tmp/
+vendor_imports/
+
+# Files
+.personality_migration
+auth.json
+config.toml
+models_cache.json
+
+# SQLite databases
+.sqlite*

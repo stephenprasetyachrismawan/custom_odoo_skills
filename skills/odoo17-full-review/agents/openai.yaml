@@ -1,0 +1,7 @@
+interface:
+  display_name: "Odoo 17 Full Review"
+  short_description: "Review/refactor Odoo 17 code from the current chat context."
+  default_prompt: "Use $odoo17-full-review to review all Odoo 17 code shown in this chat."
+
+policy:
+  allow_implicit_invocation: true
