@@ -1,0 +1,25 @@
+/** @odoo-module **/
+
+// INHERIT_FROM: {{ source_ref }}
+// CHANGE_REASON: {{ reason }}
+// DATE: {{ date }}
+// CHANGE_ID: {{ change_id }}
+
+import { patch } from "@web/core/utils/patch";
+import { {{ target_symbol }} } from "{{ target_import_path }}";
+
+/**
+ * Patch key must be unique to avoid collisions.
+ * Keep the patch minimal and preserve original behavior where possible.
+ */
+patch({{ target_symbol }}.prototype, "{{ patch_key }}", {
+    {{ method_name }}(...args) {
+        // Call original behavior first unless explicitly changing flow.
+        const res = super.{{ method_name }}(...args);
+
+        // Apply minimal custom behavior (avoid side effects).
+        {{ custom_code }}
+
+        return res;
+    },
+});

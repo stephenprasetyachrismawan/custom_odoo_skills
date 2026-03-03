@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!--
+  INHERIT_FROM: {{ base_template }}
+  CHANGE_REASON: {{ reason }}
+  DATE: {{ date }}
+  CHANGE_ID: {{ change_id }}
+  -->
+  <template id="{{ new_template_xmlid }}" inherit_id="{{ base_template }}" name="{{ name }}">
+    <xpath expr="{{ xpath_expr }}" position="{{ position }}">
+      {{ injected_xml }}
+    </xpath>
+  </template>
+</odoo>

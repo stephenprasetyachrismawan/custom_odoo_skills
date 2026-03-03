@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!--
+    INHERIT_FROM: {{ base_view_xmlid }}
+    CHANGE_REASON: {{ reason }}
+    DATE: {{ date }}
+    CHANGE_ID: {{ change_id }}
+    -->
+    <record id="{{ new_view_xmlid }}" model="ir.ui.view">
+      <field name="name">{{ model }}.inherit.{{ change_id }}</field>
+      <field name="model">{{ model }}</field>
+      <field name="inherit_id" ref="{{ base_view_xmlid }}"/>
+      <field name="arch" type="xml">
+        <xpath expr="{{ xpath_expr }}" position="{{ position }}">
+          {{ injected_xml }}
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
