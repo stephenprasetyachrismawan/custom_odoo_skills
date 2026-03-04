@@ -1,0 +1,6 @@
+SAFE REMEDIATION PLAYBOOK (Odoo 17)
+1) Fix assets first: ensure all custom JS/QWeb are loaded in correct bundle.
+2) Fix registry collisions: rename keys with module prefix; avoid duplicate patch keys.
+3) Fix widget usage: widget="..." must match registered key AND loaded assets.
+4) Fix QWeb mismatch: template ids referenced by JS must exist and be loaded.
+5) Reduce patch surface: patch only needed methods, keep original flow where possible.

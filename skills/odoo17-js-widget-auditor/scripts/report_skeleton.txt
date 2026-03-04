@@ -1,0 +1,20 @@
+EXECUTIVE SUMMARY
+- Issues: Critical=, High=, Medium=, Low=
+- Root cause clusters:
+  1)
+  2)
+  3)
+
+ISSUE LIST
+JSW-001:
+- Severity:
+- Category:
+- Evidence:
+- Root cause:
+- Fix:
+- Conflict risk:
+
+QUICK REMEDIATION PLAN
+1)
+2)
+3)

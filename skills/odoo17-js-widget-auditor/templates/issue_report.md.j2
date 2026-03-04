@@ -1,0 +1,22 @@
+EXECUTIVE SUMMARY
+- Issues: Critical={{ crit }}, High={{ high }}, Medium={{ med }}, Low={{ low }}
+- Top clusters:
+  1) {{ cluster1 }}
+  2) {{ cluster2 }}
+  3) {{ cluster3 }}
+
+ISSUE LIST
+{% for issue in issues %}
+{{ issue.id }}:
+- Severity: {{ issue.severity }}
+- Category: {{ issue.category }}
+- Evidence: {{ issue.evidence }}
+- Root cause: {{ issue.root_cause }}
+- Suggested fix: {{ issue.fix }}
+- Conflict risk: {{ issue.conflict_risk }}
+{% endfor %}
+
+QUICK REMEDIATION PLAN
+{% for step in plan %}
+- {{ step }}
+{% endfor %}
