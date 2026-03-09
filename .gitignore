@@ -12,4 +12,9 @@ config.toml
 models_cache.json
 
 # SQLite databases
-.sqlite*
+*.sqlite*
+*.jsonl
+*.sh
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

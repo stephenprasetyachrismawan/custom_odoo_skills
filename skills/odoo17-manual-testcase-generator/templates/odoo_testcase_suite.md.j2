@@ -1,0 +1,38 @@
+FEATURE SUMMARY
+- Name: {{ feature_name }}
+- Scope: {{ scope }}
+- Actors/Roles: {{ roles }}
+- Entry points: {{ entry_points }}
+- Models: {{ models }}
+- Views: {{ views }}
+- Assets/JS: {{ assets }}
+- Assumptions: {{ assumptions }}
+
+COVERAGE MATRIX
+{% for b in behaviors %}
+- {{ b.id }}: {{ b.text }}
+{% endfor %}
+
+MANUAL TEST CASES
+{% for tc in testcases %}
+{{ tc.id }} — {{ tc.title }}
+- Priority: {{ tc.priority }}
+- Risks: {{ tc.risks }}
+- Preconditions: {{ tc.preconditions }}
+- Data/setup: {{ tc.data_setup }}
+- Steps:
+{% for s in tc.steps %}
+  {{ loop.index }}. {{ s }}
+{% endfor %}
+- Expected results:
+{% for e in tc.expected %}
+  - {{ e }}
+{% endfor %}
+- Evidence tips: {{ tc.evidence }}
+- Traceability: {{ tc.trace }}
+{% endfor %}
+
+MINIMAL REGRESSION CHECKLIST
+{% for item in regression %}
+- {{ item }}
+{% endfor %}

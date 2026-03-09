@@ -1,0 +1,18 @@
+FEATURE: {{ feature_name }}
+
+BEHAVIORS
+{% for b in behaviors %}
+- {{ b.id }}: {{ b.text }}
+{% endfor %}
+
+COVERAGE DIMENSIONS
+A) UI/UX & Views: {{ coverage.ui }}
+B) ORM & Data Integrity: {{ coverage.orm }}
+C) Workflows: {{ coverage.workflow }}
+D) Security & Access: {{ coverage.security }}
+E) Chatter & Activities: {{ coverage.chatter }}
+F) Actions: {{ coverage.actions }}
+G) Reports: {{ coverage.reports }}
+H) JS/Widgets: {{ coverage.js }}
+I) Concurrency/Performance: {{ coverage.perf }}
+J) Regression: {{ coverage.regression }}
