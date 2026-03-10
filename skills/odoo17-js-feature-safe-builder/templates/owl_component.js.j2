@@ -1,0 +1,39 @@
+/** @odoo-module **/
+
+// FEATURE_ID: {{ module_name }}.{{ feature_slug }}
+// PURPOSE: {{ purpose }}
+// CREATED_AT: {{ date }}
+// NOTES: Based on Odoo 17 OWL patterns; designed to minimize collisions.
+
+import { Component } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
+
+const {{ module_prefix }}_{{ feature_slug|upper }}_DEFAULTS = Object.freeze({
+    // Keep defaults immutable to avoid side effects.
+});
+
+export class {{ module_prefix }}{{ feature_slug }}Widget extends Component {
+    static template = "{{ module_name }}.{{ feature_slug }}Widget";
+    static props = {
+        // Define props explicitly to keep component predictable.
+        // Example: record: Object, readonly: Boolean
+    };
+
+    setup() {
+        // Services are explicit dependencies; keep them minimal.
+        this.orm = useService("orm");
+        this.notification = useService("notification");
+    }
+
+    async onAction() {
+        // Keep async actions safe; fail gracefully.
+        try {
+            // ... RPC or UI update here
+            this.notification.add("Action executed.", { type: "success" });
+        } catch (err) {
+            this.notification.add("Failed to execute action.", { type: "danger" });
+            // Avoid noisy logs; keep one useful debug point.
+            console.debug("[{{ module_name }}.{{ feature_slug }}] onAction error:", err);
+        }
+    }
+}

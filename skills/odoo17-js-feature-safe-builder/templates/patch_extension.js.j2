@@ -1,0 +1,21 @@
+/** @odoo-module **/
+
+// FEATURE_ID: {{ module_name }}.{{ feature_slug }}
+// PURPOSE: {{ purpose }}
+// CREATED_AT: {{ date }}
+// NOTE: Minimal patch. Keep original behavior unless explicitly changing flow.
+
+import { patch } from "@web/core/utils/patch";
+import { {{ target_symbol }} } from "{{ target_import_path }}";
+
+patch({{ target_symbol }}.prototype, "{{ module_name }}.{{ feature_slug }}", {
+    {{ method_name }}(...args) {
+        // Preserve original behavior
+        const res = super.{{ method_name }}(...args);
+
+        // Apply minimal custom logic (side-effect safe)
+        {{ custom_code }}
+
+        return res;
+    },
+});

@@ -1,0 +1,26 @@
+/** @odoo-module **/
+
+// FEATURE_ID: {{ module_name }}.{{ feature_slug }}
+// PURPOSE: {{ purpose }}
+// CREATED_AT: {{ date }}
+
+import { registry } from "@web/core/registry";
+
+export const {{ module_prefix }}{{ feature_slug }}Service = {
+    dependencies: ["orm", "notification"],
+    start(env, { orm, notification }) {
+        const {{ module_prefix }}_{{ feature_slug|upper }}_SERVICE_KEY = "{{ module_name }}.{{ feature_slug }}.service";
+
+        function notifyInfo(message) {
+            notification.add(message, { type: "info" });
+        }
+
+        return {
+            key: {{ module_prefix }}_{{ feature_slug|upper }}_SERVICE_KEY,
+            notifyInfo,
+        };
+    },
+};
+
+// Unique registry key to avoid collisions
+registry.category("services").add("{{ module_name }}.{{ feature_slug }}", {{ module_prefix }}{{ feature_slug }}Service);
