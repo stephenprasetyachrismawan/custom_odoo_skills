@@ -1,0 +1,8 @@
+prefix_rule(pattern=["git", "clone", "https://github.com/obra/superpowers.git", "/home/steve/.codex/superpowers"], decision="allow")
+prefix_rule(pattern=["mkdir", "-p", "/home/steve/.agents/skills"], decision="allow")
+prefix_rule(pattern=["ln", "-s", "/home/steve/.codex/superpowers/skills", "/home/steve/.agents/skills/superpowers"], decision="allow")
+prefix_rule(pattern=["git", "worktree", "add"], decision="allow")
+prefix_rule(pattern=["git", "add"], decision="allow")
+prefix_rule(pattern=["git", "commit"], decision="allow")
+prefix_rule(pattern=["git", "pull"], decision="allow")
+prefix_rule(pattern=["git", "merge"], decision="allow")
